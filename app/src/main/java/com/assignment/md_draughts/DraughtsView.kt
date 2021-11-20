@@ -20,6 +20,7 @@ class DraughtsView(context: Context?) : View(context) {
     private var frmRow: Int = 0
     private lateinit var _black: Paint
     var coinPosition = arrayListOf<DraughtsCoins>()
+    lateinit var fromCoin:DraughtsCoins
 
     constructor(context: Context?, attribs: AttributeSet?) : this(context) {
         _attribs = attribs
@@ -70,7 +71,11 @@ class DraughtsView(context: Context?) : View(context) {
         }
 
     }
-
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        val smaller = min(widthMeasureSpec, heightMeasureSpec)
+        setMeasuredDimension(smaller, smaller)
+    }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -87,12 +92,28 @@ class DraughtsView(context: Context?) : View(context) {
         if (event!!.actionMasked == MotionEvent.ACTION_DOWN || event!!.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             frmRow = (event.x  / cellSize).toInt()
             frmColumn = (event.y  / cellSize).toInt()
-
+            for (obj in coinPosition)
+            {
+                if(obj.row == frmRow && obj.colum == frmColumn)
+                {
+                    fromCoin = obj
+                }
+            }
             invalidate()
             return true
         } else if (event!!.actionMasked == MotionEvent.ACTION_UP || event!!.actionMasked == MotionEvent.ACTION_POINTER_UP) {
-            val col = (event.x  / cellSize).toInt()
-            val row = (event.y  / cellSize).toInt()
+            val row = (event.x  / cellSize).toInt()
+            val col = (event.y  / cellSize).toInt()
+            if(fromCoin.row != row && fromCoin.row != col){
+                coinPosition.remove(fromCoin)
+                var obj: DraughtsCoins = DraughtsCoins(
+                    colum = col.toInt(),
+                    row = row.toInt(),
+                    player = fromCoin.player,
+                    colour = fromCoin.colour
+                )
+                coinPosition.add(obj)
+            }
 
             invalidate()
             return true
@@ -118,7 +139,7 @@ class DraughtsView(context: Context?) : View(context) {
 
             for (j in 0 until 8) {
                 paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                canvas?.save()
+
 
                 canvas?.drawRect(
                     j * cellSize,
@@ -129,7 +150,7 @@ class DraughtsView(context: Context?) : View(context) {
                 )
                 var text = "("+i+"-"+j+")"
                canvas.drawText(text, j*1.0f* cellSize , (i + 1) * cellSize, _black)
-                canvas?.restore()
+
             }
         }
 
