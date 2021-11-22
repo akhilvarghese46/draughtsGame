@@ -30,8 +30,8 @@ class DraughtsView(context: Context?) : View(context) {
     init {
         playerOneCoin = Paint(Paint.ANTI_ALIAS_FLAG)
         playerTwoCoin = Paint(Paint.ANTI_ALIAS_FLAG)
-        playerOneCoin.setColor(Color.argb(255, 0, 0, 255))
-        playerTwoCoin.setColor(Color.argb(255, 0, 255, 0))
+        playerOneCoin.setColor(Color.argb(255, 0, 0, 255)) //blue
+        playerTwoCoin.setColor(Color.argb(255, 0, 255, 0)) //green
         _black = Paint(Paint.ANTI_ALIAS_FLAG)
         _black.setColor(Color.argb(255, 0, 0, 0))
         lightColor = Color.parseColor("#EEEEEE")
@@ -42,12 +42,13 @@ class DraughtsView(context: Context?) : View(context) {
         for (j in 0 until 3) {
             for (i in 0 until 8) {
                 paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                if (paint.color == lightColor) {
+                if (paint.color == darkColor) {
                     var obj: DraughtsCoins = DraughtsCoins(
                         colum = j.toInt(),
                         row = i.toInt(),
                         player = Players.PlayerTwo,
-                        colour = playerTwoCoin
+                        colour = playerTwoCoin,
+                        isKing = false
                     )
 
                     coinPosition.add(obj)
@@ -63,7 +64,8 @@ class DraughtsView(context: Context?) : View(context) {
                         colum = j.toInt(),
                         row = i.toInt(),
                         player = Players.PlayerOne,
-                        colour = playerOneCoin
+                        colour = playerOneCoin,
+                        isKing = false
                     )
                     coinPosition.add(obj)
                 }
@@ -104,16 +106,7 @@ class DraughtsView(context: Context?) : View(context) {
         } else if (event!!.actionMasked == MotionEvent.ACTION_UP || event!!.actionMasked == MotionEvent.ACTION_POINTER_UP) {
             val row = (event.x  / cellSize).toInt()
             val col = (event.y  / cellSize).toInt()
-            if(fromCoin.row != row && fromCoin.row != col){
-                coinPosition.remove(fromCoin)
-                var obj: DraughtsCoins = DraughtsCoins(
-                    colum = col.toInt(),
-                    row = row.toInt(),
-                    player = fromCoin.player,
-                    colour = fromCoin.colour
-                )
-                coinPosition.add(obj)
-            }
+            moveCoin(row, col)
 
             invalidate()
             return true
@@ -123,6 +116,95 @@ class DraughtsView(context: Context?) : View(context) {
             return true
         }
         return super.onTouchEvent(event)
+    }
+
+    private fun moveCoin(row: Int, col: Int) {
+
+        var isMove:Boolean=false
+        var newRow= row
+        var newColum = col
+        if(fromCoin.row != row || fromCoin.colum != col){
+            if(isCoinCanMove(fromCoin,row,col))
+            {
+                isMove=true
+                for (obj in coinPosition)
+                {
+                    if(obj.row == row && obj.colum == col)
+                    {
+                        isMove=false
+                        /*if(obj.player!=fromCoin.player){
+                            isMove=false
+                        }
+                        else{
+                            isMove=false
+                        }*/
+
+                    }
+                }
+
+
+
+            }else{
+                if(isGetPointMove(fromCoin,row,col)){
+                    isMove=true
+                    for (obj in coinPosition)
+                    {
+                        if(obj.row == row && obj.colum == col)
+                        {
+                            isMove=false
+
+
+                        }
+                    }
+                }
+
+            }
+            if(isMove) {
+
+                coinPosition.remove(fromCoin)
+                var newObj: DraughtsCoins = DraughtsCoins(
+                    colum = newColum.toInt(),
+                    row = newRow.toInt(),
+                    player = fromCoin.player,
+                    colour = fromCoin.colour,
+                    isKing = false
+                )
+                coinPosition.add(newObj)
+            }
+
+
+
+        }
+
+
+    }
+
+    private fun isGetPointMove(frmCoinData: DraughtsCoins, toRow: Int, toColumn: Int): Boolean {
+        var clumndrawcheck:Boolean = false
+        if(frmCoinData.player.equals(Players.PlayerOne))
+        {
+            clumndrawcheck =toColumn.equals(frmCoinData.colum-2) && (toRow.equals(frmCoinData.row-2)||toRow.equals(frmCoinData.row+2))&&(toRow>=0&&toRow<=7&&toColumn>=0&&toColumn<=7)
+            return clumndrawcheck
+        }
+        else{
+            clumndrawcheck = toColumn.equals(frmCoinData.colum+2) && (toRow.equals(frmCoinData.row-2)||toRow.equals(frmCoinData.row+2))&&(toRow>=0&&toRow<=7&&toColumn>=0&&toColumn<=7)
+            return clumndrawcheck
+        }
+    }
+
+    private fun isCoinCanMove(frmCoinData: DraughtsCoins, toRow: Int, toColumn: Int):Boolean {
+        var clumandrowcheck:Boolean = false
+        if(frmCoinData.player.equals(Players.PlayerOne))
+        {
+            clumandrowcheck =toColumn.equals(frmCoinData.colum-1) && (toRow.equals(frmCoinData.row-1)||toRow.equals(frmCoinData.row+1))&&(toRow>=0&&toRow<=7&&toColumn>=0&&toColumn<=7)
+            return clumandrowcheck
+        }
+        else{
+            clumandrowcheck = toColumn.equals(frmCoinData.colum+1) && (toRow.equals(frmCoinData.row-1)||toRow.equals(frmCoinData.row+1))&&(toRow>=0&&toRow<=7&&toColumn>=0&&toColumn<=7)
+            return clumandrowcheck
+        }
+
+
     }
 
 
