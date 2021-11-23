@@ -147,29 +147,60 @@ class DraughtsView(context: Context?) : View(context) {
             }else{
                 if(isGetPointMove(fromCoin,row,col)){
                     isMove=false
-                    var isDel = false
-                    for (obj in coinPosition)
+                    val event: DraughtsCoins? = coinPosition.find { it.row == row && it.colum==col}
+                    if(event!=null)
+                        isMove=false
+                    else{
+                        if(fromCoin.player==Players.PlayerOne) {
+                            val eventRight: DraughtsCoins? =
+                                coinPosition.find { it.row == fromCoin.row - 1 && it.colum == fromCoin.colum - 1 && row + 1 == it.row && col + 1 == it.colum && fromCoin.player != it.player }
+                            if (eventRight != null) {
+                                isMove = true
+                                coinPosition.remove(eventRight)
+                            }
+                            val eventLeft: DraughtsCoins? =
+                                coinPosition.find { fromCoin.row + 1 == it.row && fromCoin.colum - 1 == it.colum && row - 1 == it.row && col + 1 == it.colum && fromCoin.player != it.player }
+                            if (eventLeft != null) {
+                                isMove = true
+                                coinPosition.remove(eventLeft)
+                            }
+                        }else {
+                            val eventRightPt: DraughtsCoins? =
+                                coinPosition.find { it.row == fromCoin.row + 1 && it.colum == fromCoin.colum + 1 && row - 1 == it.row && col - 1 == it.colum && fromCoin.player != it.player }
+                            if (eventRightPt != null) {
+                                isMove = true
+                                coinPosition.remove(eventRightPt)
+                            }
+                            val eventLeftPt: DraughtsCoins? =
+                                coinPosition.find { fromCoin.row - 1 == it.row && fromCoin.colum + 1 == it.colum && row + 1 == it.row && col - 1 == it.colum && fromCoin.player != it.player }
+                            if (eventLeftPt != null) {
+                                isMove = true
+                                coinPosition.remove(eventLeftPt)
+                            }
+                        }
+                    }
+
+                   /* for (obj in coinPosition)
                     {
+                        var isDel = false
                         if(obj.row == row && obj.colum == col)
                         {
                             isMove=false
+                            return
 
                         }
-                        else {
-
-                            if (fromCoin.row - 1 == obj.row && fromCoin.colum - 1 == obj.colum && row + 1 == obj.row && col + 1 == obj.colum && fromCoin.player != obj.player) {
-                                isDel = true
-                                isMove = true
-                            }
-
-                            if (fromCoin.row + 1 == obj.row && fromCoin.colum - 1 == obj.colum && row-1 == obj.row && col+1 == obj.colum  && fromCoin.player != obj.player) {
-                                isDel = true
-                                isMove = true
-                            }
-                            if(isDel==true)
-                                coinPosition.remove(obj)
+                        if (fromCoin.row - 1 == obj.row && fromCoin.colum - 1 == obj.colum && row + 1 == obj.row && col + 1 == obj.colum && fromCoin.player != obj.player) {
+                            isDel = true
+                            isMove = true
                         }
-                    }
+
+                        if (fromCoin.row + 1 == obj.row && fromCoin.colum - 1 == obj.colum && row-1 == obj.row && col+1 == obj.colum  && fromCoin.player != obj.player) {
+                            isDel = true
+                            isMove = true
+                        }
+                        if(isDel==true)
+                            coinPosition.remove(obj)
+                    }*/
                 }
 
             }
@@ -254,6 +285,8 @@ class DraughtsView(context: Context?) : View(context) {
 
 
     private fun drwCoin(canvas: Canvas) {
+        var w = canvas.width
+        var h = canvas.height
         for (obj in coinPosition) {
             canvas?.save()
             canvas?.translate(
@@ -267,52 +300,19 @@ class DraughtsView(context: Context?) : View(context) {
             var text = "["+k+"-"+m+"]"
 
             canvas?.drawCircle(0.0f, 0.0f, cellSize / 3.0f, obj.colour)
+           /* if(obj.isKing==false){
+
+            }*/
+
+
+
+            
+
+
             canvas.drawText(text, j , i, _black)
             canvas?.restore()
         }
-        /*
 
-            for (j in 0 until 3) {
-                for (i in 0 until 8) {
-                    paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                    if (paint.color == lightColor) {
-                        var obj: DraughtsCoins = DraughtsCoins(
-                            colum = j.toInt(),
-                            row = i.toInt(),
-                            player = Players.PlayerTwo
-                        )
-                        canvas?.save()
-                        canvas?.translate(
-                            (i * cellSize) + cellSize / 2.0f,
-                            (j * cellSize) + cellSize / 2.0f
-                        )
-                        canvas?.drawCircle(0.0f, 0.0f, cellSize / 3.0f, playerTwoCoin)
-                        canvas?.restore()
-                        coinPosition.add(obj)
-                    }
-                }
-            }
-
-            for (j in 5 until 8) {
-                for (i in 0 until 8) {
-                    paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                    if (paint.color == darkColor) {
-                        var obj: DraughtsCoins = DraughtsCoins(
-                            colum = j.toInt(),
-                            row = i.toInt(),
-                            player = Players.PlayerOne
-                        )
-                        canvas?.save()
-                        canvas?.translate(
-                            (i * cellSize) + cellSize / 2.0f,
-                            (j * cellSize) + cellSize / 2.0f
-                        )
-                        canvas?.drawCircle(0.0f, 0.0f, cellSize / 3.0f, playerOneCoin)
-                        canvas?.restore()
-                        coinPosition.add(obj)
-                    }
-                }
-            }*/
 
     }
 
