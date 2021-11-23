@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">md_draughts</string>
+    <string-array name="spinner_DarkColour">
+        <item>Dark Brown</item>
+        <item>Dark Black</item>
+        <item>Dark Green</item>
+    </string-array>
+
+    <string-array name="spinner_lightColour">
+        <item>Light Brown</item>
+        <item>White</item>
+        <item>Light Green</item>
+    </string-array>
 </resources>

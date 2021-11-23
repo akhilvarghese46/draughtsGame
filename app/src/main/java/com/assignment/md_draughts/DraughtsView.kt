@@ -11,8 +11,8 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
 
     private var _attribs: AttributeSet? = null
     private var cellSize = 0f
-    private var lightColor = Color.parseColor("#EEEEEE")
-    private var darkColor = Color.parseColor("#BBBBBB")
+    public var lightColor = Color.parseColor("#EEEEEE")
+    public var darkColor = Color.parseColor("#BBBBBB")
     private val paint = Paint()
     private var playerOneCoin: Paint
     private var playerTwoCoin: Paint
