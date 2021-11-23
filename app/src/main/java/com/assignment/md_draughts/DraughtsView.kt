@@ -7,7 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import kotlin.math.min
 
-class DraughtsView(context: Context?) : View(context) {
+class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private var _attribs: AttributeSet? = null
     private var cellSize = 0f
@@ -22,9 +22,9 @@ class DraughtsView(context: Context?) : View(context) {
     var coinPosition = arrayListOf<DraughtsCoins>()
     lateinit var fromCoin:DraughtsCoins
 
-    constructor(context: Context?, attribs: AttributeSet?) : this(context) {
+   /* constructor(context: Context?, attribs: AttributeSet?) : this(context) {
         _attribs = attribs
-    }
+    }*/
 
 
     init {
@@ -36,41 +36,9 @@ class DraughtsView(context: Context?) : View(context) {
         _black.setColor(Color.argb(255, 0, 0, 0))
         lightColor = Color.parseColor("#EEEEEE")
         darkColor = Color.parseColor("#BBBBBB")
+        initializeCoins()
 
 
-
-        for (j in 0 until 3) {
-            for (i in 0 until 8) {
-                paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                if (paint.color == darkColor) {
-                    var obj: DraughtsCoins = DraughtsCoins(
-                        colum = j.toInt(),
-                        row = i.toInt(),
-                        player = Players.PlayerTwo,
-                        colour = playerTwoCoin,
-                        isKing = false
-                    )
-
-                    coinPosition.add(obj)
-                }
-            }
-        }
-
-        for (j in 5 until 8) {
-            for (i in 0 until 8) {
-                paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                if (paint.color == darkColor) {
-                    var obj: DraughtsCoins = DraughtsCoins(
-                        colum = j.toInt(),
-                        row = i.toInt(),
-                        player = Players.PlayerOne,
-                        colour = playerOneCoin,
-                        isKing = false
-                    )
-                    coinPosition.add(obj)
-                }
-            }
-        }
 
     }
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -117,7 +85,42 @@ class DraughtsView(context: Context?) : View(context) {
         }
         return super.onTouchEvent(event)
     }
+    public fun initializeCoins() {
+        coinPosition.clear()
 
+        for (j in 0 until 3) {
+            for (i in 0 until 8) {
+                paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
+                if (paint.color == darkColor) {
+                    var obj: DraughtsCoins = DraughtsCoins(
+                        colum = j.toInt(),
+                        row = i.toInt(),
+                        player = Players.PlayerTwo,
+                        colour = playerTwoCoin,
+                        isKing = false
+                    )
+
+                    coinPosition.add(obj)
+                }
+            }
+        }
+
+        for (j in 5 until 8) {
+            for (i in 0 until 8) {
+                paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
+                if (paint.color == darkColor) {
+                    var obj: DraughtsCoins = DraughtsCoins(
+                        colum = j.toInt(),
+                        row = i.toInt(),
+                        player = Players.PlayerOne,
+                        colour = playerOneCoin,
+                        isKing = false
+                    )
+                    coinPosition.add(obj)
+                }
+            }
+        }
+    }
     private fun moveCoin(row: Int, col: Int) {
 
         var isMove:Boolean=false
@@ -306,7 +309,7 @@ class DraughtsView(context: Context?) : View(context) {
 
 
 
-            
+
 
 
             canvas.drawText(text, j , i, _black)
