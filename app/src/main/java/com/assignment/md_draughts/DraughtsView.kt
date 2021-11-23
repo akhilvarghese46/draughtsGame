@@ -146,14 +146,28 @@ class DraughtsView(context: Context?) : View(context) {
 
             }else{
                 if(isGetPointMove(fromCoin,row,col)){
-                    isMove=true
+                    isMove=false
+                    var isDel = false
                     for (obj in coinPosition)
                     {
                         if(obj.row == row && obj.colum == col)
                         {
                             isMove=false
 
+                        }
+                        else {
 
+                            if (fromCoin.row - 1 == obj.row && fromCoin.colum - 1 == obj.colum && row + 1 == obj.row && col + 1 == obj.colum && fromCoin.player != obj.player) {
+                                isDel = true
+                                isMove = true
+                            }
+
+                            if (fromCoin.row + 1 == obj.row && fromCoin.colum - 1 == obj.colum && row-1 == obj.row && col+1 == obj.colum  && fromCoin.player != obj.player) {
+                                isDel = true
+                                isMove = true
+                            }
+                            if(isDel==true)
+                                coinPosition.remove(obj)
                         }
                     }
                 }
