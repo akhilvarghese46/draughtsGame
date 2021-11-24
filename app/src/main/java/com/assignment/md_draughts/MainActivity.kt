@@ -4,14 +4,13 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var draughtView: DraughtsView
     private lateinit var resetData: Button
+    private lateinit var balanceP1: TextView
+    private lateinit var balanceP2: TextView
     private var darkspinner: Spinner? = null
     private var lightspinner: Spinner? = null
 
@@ -22,8 +21,22 @@ class MainActivity : AppCompatActivity() {
         darkspinner = findViewById<Spinner>(R.id.spin_darkColor)
         lightspinner = findViewById<Spinner>(R.id.spin_lightColor)
         draughtView = findViewById<DraughtsView>(R.id.draught_view)
-
+        balanceP1 = findViewById<Button>(R.id.balanceNum_PlayerOne)
+        balanceP2 = findViewById<Button>(R.id.balanceNum_Playertwo)
         resetData = findViewById<Button>(R.id.btn_reset)
+
+
+        draughtView.setOnChangeListner(object :DraughtsView.OnChangeListner{
+            override fun onChange(p1:Int,p2:Int) {
+
+                balanceP1.text = p1.toString()
+                balanceP2.text = p2.toString()
+            }
+
+        })
+
+
+
 
         var adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
             this,
@@ -79,6 +92,7 @@ class MainActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
+
 
 
     }
