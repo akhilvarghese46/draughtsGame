@@ -11,11 +11,12 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
 
     private var _attribs: AttributeSet? = null
     private var cellSize = 0f
-    public var lightColor = Color.parseColor("#EEEEEE")
-    public var darkColor = Color.parseColor("#BBBBBB")
+    public lateinit var lightColor: Paint
+    public lateinit var darkColor: Paint
+    public lateinit var colourPosition: Paint
     private val paint = Paint()
-    private var playerOneCoin: Paint
-    private var playerTwoCoin: Paint
+    public var playerOneCoin: Paint
+    public var playerTwoCoin: Paint
     private var frmColumn: Int =0
     private var frmRow: Int = 0
     private lateinit var _black: Paint
@@ -23,21 +24,25 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
     lateinit var fromCoin:DraughtsCoins
     var playerOneCoinNumber:Int=12
     var playerTwoCoinNumber:Int=12
-    var changeListner:OnChangeListner?=null
+    var changeListner:OnChangeListnerFromDraughtView?=null
+    var nextMove:Players = Players.PlayerOne
    /* constructor(context: Context?, attribs: AttributeSet?) : this(context) {
         _attribs = attribs
     }*/
 
 
     init {
+        darkColor = Paint(Paint.ANTI_ALIAS_FLAG)
+        lightColor = Paint(Paint.ANTI_ALIAS_FLAG)
         playerOneCoin = Paint(Paint.ANTI_ALIAS_FLAG)
         playerTwoCoin = Paint(Paint.ANTI_ALIAS_FLAG)
+        colourPosition = Paint(Paint.ANTI_ALIAS_FLAG)
+        darkColor.setColor(Color.argb(183, 183, 183, 183))
+        lightColor.setColor(Color.argb(150, 238, 238, 238))
         playerOneCoin.setColor(Color.argb(255, 0, 0, 255)) //blue
         playerTwoCoin.setColor(Color.argb(255, 0, 255, 0)) //green
         _black = Paint(Paint.ANTI_ALIAS_FLAG)
         _black.setColor(Color.argb(255, 0, 0, 0))
-        lightColor = Color.parseColor("#EEEEEE")
-        darkColor = Color.parseColor("#BBBBBB")
         initializeCoins()
 
 
@@ -76,7 +81,9 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
         } else if (event!!.actionMasked == MotionEvent.ACTION_UP || event!!.actionMasked == MotionEvent.ACTION_POINTER_UP) {
             val row = (event.x  / cellSize).toInt()
             val col = (event.y  / cellSize).toInt()
-            moveCoin(row, col)
+            if(fromCoin.player==nextMove)
+               // if(IsAnyMoveToGetPoint(fromCoin,row,col))
+                    moveCoin(row, col)
 
             invalidate()
             return true
@@ -87,15 +94,44 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
         }
         return super.onTouchEvent(event)
     }
+
+    private fun IsAnyMoveToGetPoint(fromCoin: DraughtsCoins, row: Int, col: Int): Boolean {
+        var isval:Boolean=true
+        if(nextMove==Players.PlayerOne) {
+            for (p1 in coinPosition) //p1
+            {
+                for (p2 in coinPosition) //p2
+                {
+                    if(p1.player==Players.PlayerOne && p2.player==Players.PlayerTwo)
+                    {
+                        isval =p2.colum.equals(p1.colum - 1) && (p2.row.equals(p1.row - 1)||p2.row.equals(p1.row + 1))
+                            if(isval){
+                                var isValTwo:Boolean = col.equals(p1.colum-2) && (row.equals(p1.row-2))
+                                //||p2.row.equals(p1.row+2))
+                                if(isValTwo&&fromCoin.row==p1.row&&fromCoin.colum==p1.colum)
+                                    return true
+                            return false
+                            }
+                    }
+
+                }
+            }
+        }else{
+
+        }
+        return true
+    }
+
     public fun initializeCoins() {
         coinPosition.clear()
         playerOneCoinNumber=12
         playerTwoCoinNumber=12
+        nextMove=Players.PlayerOne
 
         for (j in 0 until 3) {
             for (i in 0 until 8) {
-                paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                if (paint.color == darkColor) {
+                colourPosition = if ((j + i) % 2 == 1) darkColor else lightColor
+                if (colourPosition == darkColor) {
                     var obj: DraughtsCoins = DraughtsCoins(
                         colum = j.toInt(),
                         row = i.toInt(),
@@ -111,8 +147,8 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
 
         for (j in 5 until 8) {
             for (i in 0 until 8) {
-                paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
-                if (paint.color == darkColor) {
+                colourPosition = if ((j + i) % 2 == 1) darkColor else lightColor
+                if (colourPosition == darkColor) {
                     var obj: DraughtsCoins = DraughtsCoins(
                         colum = j.toInt(),
                         row = i.toInt(),
@@ -139,7 +175,6 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
                 if (eventp1 != null) {
                     isMove=false
                 }
-
 
             }else{
                 if(isGetPointMove(fromCoin,row,col)){
@@ -214,10 +249,15 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
                             }
                         }
                     }
-
-
                 }
+            }
 
+            if(isMove&&fromCoin.player==Players.PlayerOne){
+                nextMove=Players.PlayerTwo
+            }
+
+            if(isMove&&fromCoin.player==Players.PlayerTwo){
+                nextMove=Players.PlayerOne
             }
             if(isMove) {
                 if(fromCoin.player==Players.PlayerOne && newColum==0){
@@ -236,13 +276,10 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
                     isKing = isKingBit
                 )
                 coinPosition.add(newObj)
+
+                changeListner?.onNextMovePlayer(nextMove.toString())
             }
-
-
-
         }
-
-
     }
 
     private fun isGetPointMove(frmCoinData: DraughtsCoins, toRow: Int, toColumn: Int): Boolean {
@@ -296,7 +333,7 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
         for (i in 0 until 8) {
 
             for (j in 0 until 8) {
-                paint.color = if ((j + i) % 2 == 1) darkColor else lightColor
+                colourPosition = if ((j + i) % 2 == 1) darkColor else lightColor
 
 
                 canvas?.drawRect(
@@ -304,7 +341,7 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
                     i * cellSize,
                     (j + 1) * cellSize,
                     (i + 1) * cellSize,
-                    paint
+                    colourPosition
                 )
                 var text = "("+i+"-"+j+")"
                canvas.drawText(text, j*1.0f* cellSize , (i + 1) * cellSize, _black)
@@ -343,7 +380,7 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
     private fun drawKing(canvas:Canvas,w:Float, h:Float,dx:Float,dy:Float){
 
          val paintCK = Paint()
-        paintCK.color=lightColor
+        //paintCK.color=lightColor
          val path = Path()
          val mtx = Matrix()
          var od = 0f
@@ -410,12 +447,12 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
         coinPosition.remove(removeobject)
     }
 
-    public fun setOnChangeListner(listner: OnChangeListner){
+    public fun setOnChangeListnerInDraughtView(listner: OnChangeListnerFromDraughtView){
         changeListner=listner
     }
 
-    interface OnChangeListner{
+    interface OnChangeListnerFromDraughtView{
         public fun onChange(p1:Int,p2:Int)
-
+        public fun onNextMovePlayer(p1: String)
     }
 }

@@ -6,37 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <View
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next Move By: "
+            android:gravity="center"></TextView>
+        <TextView
+            android:id="@+id/nextPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 1"
+            android:gravity="center"></TextView>
+        <View
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            />
+    </LinearLayout>
 
     <com.assignment.md_draughts.DraughtsView
         android:id="@+id/draught_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="select Dark Colour"></TextView>
-        <Spinner
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:id="@+id/spin_darkColor"
-            android:foregroundTint="#FD3232"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="select Light Colour"></TextView>
-        <Spinner
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:id="@+id/spin_lightColor"
-            android:foregroundTint="#FD3232"
-            />
-    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,7 +95,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Reset"/>
+        <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Setting"/>
 
     </LinearLayout>
-
+</LinearLayout>
 </LinearLayout>

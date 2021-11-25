@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">md_draughts</string>
+    <string name="app_name">Draughts</string>
     <string-array name="spinner_DarkColour">
         <item>Dark Brown</item>
         <item>Dark Black</item>
