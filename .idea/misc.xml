@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/drawable-v24/layout_bg.xml" value="0.2546875" />
+        <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/drawable-v24/layout_bg_Cured.xml" value="0.2546875" />
+        <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/drawable-v24/layout_bg_curved.xml" value="0.2546875" />
+        <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/drawable-v24/layout_bg_curved_Bal.xml" value="0.2703125" />
+        <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/drawable-v24/layout_bg_view.xml" value="0.2546875" />
         <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/layout/activity_draughts.xml" value="0.25416666666666665" />
         <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
         <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/layout/colourFilter.xml" value="0.25416666666666665" />
+        <entry key="..\:/Sem 1 Griffith College sep/MD/Assignment_2/md_draughts/app/src/main/res/layout/colourfilter.xml" value="0.23854166666666668" />
       </map>
     </option>
   </component>

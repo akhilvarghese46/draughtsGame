@@ -37,10 +37,10 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
         playerOneCoin = Paint(Paint.ANTI_ALIAS_FLAG)
         playerTwoCoin = Paint(Paint.ANTI_ALIAS_FLAG)
         colourPosition = Paint(Paint.ANTI_ALIAS_FLAG)
-        darkColor.setColor(Color.argb(183, 183, 183, 183))
-        lightColor.setColor(Color.argb(150, 238, 238, 238))
-        playerOneCoin.setColor(Color.argb(255, 0, 0, 255)) //blue
-        playerTwoCoin.setColor(Color.argb(255, 0, 255, 0)) //green
+        darkColor.setColor(Color.argb(255, 115, 67, 67))
+        lightColor.setColor(Color.argb(150, 195, 176, 176))
+        playerOneCoin.setColor(Color.argb(255, 32, 32, 32)) //blue
+        playerTwoCoin.setColor(Color.argb(255, 119, 0, 0)) //green
         _black = Paint(Paint.ANTI_ALIAS_FLAG)
         _black.setColor(Color.argb(255, 0, 0, 0))
         initializeCoins()
@@ -343,8 +343,8 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
                     (i + 1) * cellSize,
                     colourPosition
                 )
-                var text = "("+i+"-"+j+")"
-               canvas.drawText(text, j*1.0f* cellSize , (i + 1) * cellSize, _black)
+               // var text = "("+i+"-"+j+")"
+              // canvas.drawText(text, j*1.0f* cellSize , (i + 1) * cellSize, _black)
 
             }
         }
@@ -365,10 +365,12 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
             var m=obj.row
             var i = (obj.colum * 1.0f)
             var j=  (obj.row *1.0f)
-            var text = "["+k+"-"+m+"]"
+           // var text = "["+k+"-"+m+"]"
 
             canvas?.drawCircle(0.0f, 0.0f, cellSize / 3.0f, obj.colour)
-            canvas.drawText(text, j , i, _black)
+            canvas?.drawCircle(0.0f, 0.0f, cellSize / 5.0f, lightColor)
+            canvas?.drawCircle(0.0f, 0.0f, cellSize / 7.0f, obj.colour)
+            //canvas.drawText(text, j , i, _black)
             canvas?.restore()
             if(obj.isKing==true){
                 drawKing(canvas,cellSize/1.5f,cellSize/1.5f, (obj.row * cellSize)+cellSize/6f ,(obj.colum * cellSize)+cellSize/6f )
@@ -380,7 +382,8 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
     private fun drawKing(canvas:Canvas,w:Float, h:Float,dx:Float,dy:Float){
 
          val paintCK = Paint()
-        //paintCK.color=lightColor
+         val lightColor = Color.parseColor("#EEEEEE")
+        paintCK.color=lightColor
          val path = Path()
          val mtx = Matrix()
          var od = 0f
@@ -431,7 +434,7 @@ class DraughtsView(context: Context?, attrs: AttributeSet?) : View(context, attr
         path.quadTo(52.5f,147.2f,52.5f,147.2f)
 
         path.transform(mtx)
-        canvas.drawPath(path, paintCK)
+        //canvas.drawPath(path, paintCK)
         canvas.restore()
     }
 

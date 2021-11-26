@@ -8,65 +8,94 @@
     android:orientation="vertical">
 <LinearLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/layout_bg">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
-        <View
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_weight="0"
-            />
-        <TextView
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next Move By: "
-            android:gravity="center"></TextView>
-        <TextView
-            android:id="@+id/nextPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Player 1"
-            android:gravity="center"></TextView>
-        <View
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_weight="0"
-            />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/layout_bg_curved"
+            android:id="@+id/blinktext"
+            >
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Move By: "
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"></TextView>
+            <TextView
+                android:id="@+id/nextPlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Player 1"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"></TextView>
+            </LinearLayout>
+
     </LinearLayout>
 
     <com.assignment.md_draughts.DraughtsView
         android:id="@+id/draught_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_bg_view"/>
+    <View
+        android:layout_width="50dp"
+        android:layout_height="10dp"
+        android:layout_weight="0" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_curved">
+        <View
+            android:layout_width="50dp"
+            android:layout_height="10dp"
+            android:layout_weight="0" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Balance Coin Number"></TextView>
+            android:text="Balance Coin Number"
+            android:textColor="@android:color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"></TextView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player One:"></TextView>
+                android:text="Player One:"
+                android:textColor="@android:color/black"
+                android:textSize="15dp"></TextView>
 
             <TextView
                 android:id="@+id/balanceNum_PlayerOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12"></TextView>
+                android:text="12"
+                android:textColor="@android:color/black"
+                android:textSize="12dp"></TextView>
             <View
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
@@ -74,14 +103,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player Two:"></TextView>
+                android:text="Player Two:"
+                android:textColor="@android:color/black"
+                android:textSize="15dp"></TextView>
 
             <TextView
                 android:id="@+id/balanceNum_Playertwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12"></TextView>
+                android:text="12"
+                android:textColor="@android:color/black"
+                android:textSize="12dp"></TextView>
+
         </LinearLayout>
+        <View
+            android:layout_width="50dp"
+            android:layout_height="10dp"
+            android:layout_weight="0" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,13 +132,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Reset"/>
+            android:text="Reset"
+            app:backgroundTint="#5E1802"/>
         <Button
             android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Setting"/>
+            android:text="Setting"
+            app:backgroundTint="#5E1802"/>
 
     </LinearLayout>
 </LinearLayout>

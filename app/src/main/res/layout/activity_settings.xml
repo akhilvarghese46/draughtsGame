@@ -4,17 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_bg"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_curved">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SelectBoard Colour"></TextView>
+            android:text="SelectBoard Colour"
+            android:textColor="@android:color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"></TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +29,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dark Colour"></TextView>
+                android:text="Dark Colour"
+                android:textColor="@android:color/black"
+                android:textSize="15dp"></TextView>
             <View
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
@@ -32,8 +39,8 @@
 
             <Button
                 android:id="@+id/btn_darkColor"
-                android:layout_width="80dp"
-                android:layout_height="match_parent" />
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
             <View
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
@@ -41,26 +48,40 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Light Colour"></TextView>
+                android:text="Light Colour"
+                android:textColor="@android:color/black"
+                android:textSize="15dp"></TextView>
             <View
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0" />
             <Button
-                android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/btn_lightColor" />
         </LinearLayout>
+        <View
+            android:layout_width="10dp"
+            android:layout_height="5dp"
+            android:layout_weight="0" />
     </LinearLayout>
+    <View
+    android:layout_width="10dp"
+    android:layout_height="5dp"
+    android:layout_weight="0" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_curved">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Coin Colour"></TextView>
+            android:text="Select Coin Colour"
+            android:textColor="@android:color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"></TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,14 +91,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player One:"></TextView>
+                android:text="Player One:"
+                android:textColor="@android:color/black"
+                android:textSize="15dp"></TextView>
             <View
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0" />
             <Button
-                android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/btn_CoinOneClr" />
             <View
                 android:layout_width="50dp"
@@ -86,16 +109,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player Two"></TextView>
+                android:text="Player Two"
+                android:textColor="@android:color/black"
+                android:textSize="15dp"></TextView>
             <View
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0" />
             <Button
-                android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/btn_CoinTwoClr" />
         </LinearLayout>
+        <View
+            android:layout_width="10dp"
+            android:layout_height="5dp"
+            android:layout_weight="0" />
     </LinearLayout>
 
 </LinearLayout>

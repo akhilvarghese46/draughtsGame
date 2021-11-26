@@ -3,12 +3,14 @@ package com.assignment.md_draughts
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
@@ -38,6 +40,11 @@ class SettingsActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        val actionBar: ActionBar?
+        actionBar = supportActionBar
+        val colorDrawable = ColorDrawable(Color.parseColor("#5E1802"))
+        actionBar?.setBackgroundDrawable(colorDrawable)
 
 var NameData = intent.getStringExtra("NameData")
         darkColor = intent.getStringExtra("darkBoxColor").toString()
